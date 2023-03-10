@@ -1,8 +1,12 @@
 import React from 'react'
 
+import { AuthForm } from './components'
+
 const App = () => {
   return (
-    <div>App</div>
+    <>
+      <AuthForm/>
+    </>
   )
 }
 
