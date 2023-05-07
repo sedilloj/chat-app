@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Cookies from 'universal-cookie'
 
 const initialUserCred = {
   firstName: '',
@@ -15,63 +16,73 @@ const AuthForm = () => {
 
   // Update user credentials every time the form input fields are changed
   const handleFormChange = (e) => {
-    setUserCred({...userCred, [e.target.name]: e.target.value})
+    setUserCred({ ...userCred, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
   }
 
   return (
     <>
-      <div>{isSignup ? 'Sign Up' : 'Log In'}</div>
-      <form onSubmit={() => {}}>
-        {isSignup && (
-        <>
-          <label>First Name</label>
-          <input
-            name='firstName'
-            onChange={handleFormChange}
-            required
-          />
-          <label>Last Name</label>
-          <input
-            name='lastName'
-            onChange={handleFormChange}
-            required
-          />
-          <label>Phone Number</label>
-          <input
-            name='phoneNumber'
-            onChange={handleFormChange}
-            required
-          />
-        </>
-        )}
-        <label>User Name</label>
-        <input
-          name='username'
-          onChange={handleFormChange}
-          required
-        />
-        <label>Password</label>
-        <input
-          name='password'
-          onChange={handleFormChange}
-          required
-        />
-        {isSignup && (
+      <div>{ isSignup ? 'Sign Up' : 'Log In' }</div>
+      <form onSubmit={ handleSubmit }>
+        { isSignup && (
           <>
-            <label>Confirm Password</label>
             <input
-              name='confirmPassword'
-              onChange={handleFormChange}
+              name='firstName'
+              type='text'
+              placeholder='First Name'
+              onChange={ handleFormChange }
+              required
+            />
+            <input
+              name='lastName'
+              type='text'
+              placeholder='Last Name'
+              onChange={ handleFormChange }
+              required
+            />
+            <input
+              name='phoneNumber'
+              type='text'
+              placeholder='Phone Number'
+              onChange={ handleFormChange }
               required
             />
           </>
-        )}
+        ) }
+        <input
+          name='username'
+          type='text'
+          placeholder='User Name'
+          onChange={ handleFormChange }
+          required
+        />
+        <input
+          name='password'
+          type='text'
+          placeholder='Password'
+          onChange={ handleFormChange }
+          required
+        />
+        { isSignup && (
+          <>
+            <input
+              name='confirmPassword'
+              type='text'
+              placeholder='Confirm Password'
+              onChange={ handleFormChange }
+              required
+            />
+          </>
+        ) }
+        <button>{ isSignup ? "Create Account" : "Log In" }</button>
       </form>
-      <button>{isSignup ? "Create Account" : "Log In"}</button>
       <button>Forgot Password?</button>
       <div>
-        <p>{isSignup ? "Already have an account?" : "Don't have an account?"}</p>
-        <span onClick={() => {setIsSignup(!isSignup)}}>{isSignup ? "Log In" : "Create New Account"}</span>
+        <p>{ isSignup ? "Already have an account?" : "Don't have an account?" }</p>
+        <span onClick={ () => { setIsSignup((prevIsSignUp) => !prevIsSignUp) } }>{ isSignup ? "Log In" : "Create New Account" }</span>
       </div>
     </>
   )
